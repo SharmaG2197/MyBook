@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Create Books{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+  <div class="card shadow-lg p-4 bg-white text-black" style="max-width: 700px; margin: auto;">
+    <h2 class="mb-4 text-center">{{ form.instance.pk|yesno:"Update,Add a New" }} Book</h2>
+
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+
+      <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Title</label>
+        <div class="col-sm-9">
+          {{ form.title }}
+          {% if form.title.errors %}
+          <div class="text-danger">{{ form.title.errors }}</div>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Author</label>
+        <div class="col-sm-9">
+          {{ form.author }}
+        </div>
+      </div>
+
+      <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Description</label>
+        <div class="col-sm-9">
+          {{ form.description }}
+        </div>
+      </div>
+
+      <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Condition</label>
+        <div class="col-sm-9">
+          {{ form.condition }}
+        </div>
+      </div>
+
+      <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Total Price</label>
+        <div class="col-sm-9">
+          {{ form.total_price }}
+        </div>
+      </div>
+
+      <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Discount Price</label>
+        <div class="col-sm-9">
+          {{ form.discount_price }}
+        </div>
+      </div>
+
+      <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Image</label>
+        <div class="col-sm-9">
+          {{ form.image }}
+        </div>
+      </div>
+
+      <a href="{% url 'books_index' %}">← Back</a>
+
+      <div class="text-center" style="margin-top: -25px;">
+        <button type="submit" class="btn btn-success w-50">
+          {% if form.instance.pk %}Update{% else %}Add Book{% endif %}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock %}
+
+<!-- C:\Users\v-deepak.sharma\Desktop\BOOK\venv\my_book\templates\books\form.html -->

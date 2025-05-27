@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block css %}
+<style>
+  .star-rating {
+    direction: rtl;
+    font-size: 2rem;
+    display: inline-flex;
+  }
+
+  .star-rating input[type="radio"] {
+    display: none;
+  }
+
+  .star-rating label {
+    color: lightgray;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+
+  .star-rating input[type="radio"]:checked~label,
+  .star-rating label:hover,
+  .star-rating label:hover~label {
+    color: gold;
+  }
+
+  .center-container {
+    min-height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .rating-card {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .text-danger {
+    font-size: 0.9rem;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- Display Django Messages -->
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-{{ message.tags }}">
+  {{ message }}
+</div>
+{% endfor %}
+{% endif %}
+
+
+<div class="container mt-5">
+  <div class="center-container">
+    <div class="rating-card">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="text-center mb-4">{{ book.title }}</h3>
+          <form method="post">
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+            <div class="alert alert-danger">
+              {{ form.non_field_errors }}
+            </div>
+            {% endif %}
+
+            <!-- Rating Field -->
+            <div class="form-group mb-3 text-center">
+              <label class="form-label">Rate this book</label>
+              <div class="d-flex justify-content-center">
+                <div class="star-rating">
+                  {% for i in "54321" %}
+                  {% with form.rating.value|stringformat:"s" as current_rating %}
+                  {% if current_rating == i %}
+                  <input type="radio" name="rating" id="star{{ i }}" value="{{ i }}" checked>
+                  {% else %}
+                  <input type="radio" name="rating" id="star{{ i }}" value="{{ i }}">
+                  {% endif %}
+                  {% endwith %}
+                  <label for="star{{ i }}">&#9733;</label>
+                  {% endfor %}
+                </div>
+              </div>
+              {% if form.rating.errors %}
+              <div class="text-danger text-center mt-2">{{ form.rating.errors.0 }}</div>
+              {% endif %}
+            </div>
+
+            <!-- Comment Field -->
+            <div class="form-group mb-3">
+              {{ form.comment }}
+              {% if form.comment.errors %}
+              <div class="text-danger mt-1">{{ form.comment.errors.0 }}</div>
+              {% endif %}
+            </div>
+
+            <div class="text-center">
+              <button type="submit" class="btn btn-primary">Submit Rating</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

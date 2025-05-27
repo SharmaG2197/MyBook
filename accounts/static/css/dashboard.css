@@ -1,0 +1,57 @@
+/* General Styling */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+}
+
+/* Customize Book Cards */
+.book-card {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.book-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.book-card h5 {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.book-card p {
+  font-size: 1rem;
+  color: #555;
+}
+
+.book-card .btn-warning {
+  background-color: #ffc107;
+  border-color: #ffc107;
+}
+
+.book-card .btn-warning:hover {
+  background-color: #e0a800;
+  border-color: #e0a800;
+}
+
+/* Center the header text */
+h2.text-center {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #28a745;
+}
+
+/* Card Grid Adjustments */
+.row.g-4 {
+  margin-top: 2rem;
+}
+
+@media (max-width: 767px) {
+  .book-card {
+      margin-bottom: 15px;
+  }
+}

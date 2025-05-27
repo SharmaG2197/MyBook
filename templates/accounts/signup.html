@@ -1,0 +1,81 @@
+{% extends "accounts/auth_page.html" %}
+{% block title %}Sign Up{% endblock %}
+{% block form_content %}
+<h3>Get Started</h3>
+<p>Enter your full name and phone number.</p>
+
+
+<form method="POST" action="{% url 'signup' %}">
+  {% csrf_token %}
+
+  <div class="mb-3">
+    <label for="id_email" class="form-label">Email</label>
+    <input type="email" name="email" class="form-control {% if form.email.errors %}is-invalid{% endif %}" id="id_email"
+      value="{{ form.email.value|default:'' }}" placeholder="Enter Email Address">
+    {% for error in form.email.errors %}
+    <span class="text-danger">{{ error }}</span>
+    {% endfor %}
+  </div>
+
+  <div class="mb-3">
+    <label for="signupPassword1" class="form-label">Password</label>
+    <div class="input-group">
+      <input type="password" name="{{ form.password1.name }}" value="{{ form.password1.value|default:'' }}"
+        class="form-control {% if form.password1.errors %}is-invalid{% endif %}" id="signupPassword1"
+        placeholder="Enter Password">
+      <span class="input-group-text" onclick="togglePassword('signupPassword1')" style="cursor:pointer;">👁</span>
+    </div>
+    {% for error in form.password1.errors %}
+    <span class="text-danger">{{ error }}</span>
+    {% endfor %}
+  </div>
+
+  <div class="mb-3">
+    <label for="signupPassword2" class="form-label">Re-Type Password</label>
+    <div class="input-group">
+      <input type="password" name="{{ form.password2.name }}" value="{{ form.password2.value|default:'' }}"
+        class="form-control {% if form.password2.errors %}is-invalid{% endif %}" id="signupPassword2"
+        placeholder="Re-enter Password">
+      <span class="input-group-text" onclick="togglePassword('signupPassword2')" style="cursor:pointer;">👁</span>
+    </div>
+    {% for error in form.password2.errors %}
+    <span class="text-danger">{{ error }}</span>
+    {% endfor %}
+  </div>
+
+  <div class="form-check mb-2">
+    <input type="checkbox" name="{{ form.termsandconditions_and_privacy_policy.name }}" class="form-check-input"
+      id="agreeTnC" {% if form.termsandconditions_and_privacy_policy.value %}checked{% endif %}>
+    <label class="form-check-label" for="agreeTnC">
+      I agree to the <a href="#">Terms</a> and <a href="#">Privacy Policy</a>
+    </label>
+    {% for error in form.termsandconditions_and_privacy_policy.errors %}
+    <span class="text-danger">{{ error }}</span>
+    {% endfor %}
+  </div>
+
+  <div class="form-check mb-4">
+    <input type="checkbox" name="{{ form.marketing_mail.name }}" class="form-check-input" id="marketingEmails" checked>
+
+    <label class="form-check-label" for="marketingEmails">Receive marketing emails</label>
+    {% for error in form.marketing_mail.errors %}
+    <span class="text-danger">{{ error }}</span>
+    {% endfor %}
+  </div>
+
+  <button type="submit" class="btn btn-primary w-100 mb-3">Continue</button>
+</form>
+
+
+<button type="button" class="btn btn-outline-primary w-100">Sign up with Email</button>
+
+<div class="mt-3">
+  <a href="{% url 'dashboard' %}">← Back</a><br>
+</div>
+
+<div class="text-center mt-3">
+  <span class="text-muted">Already have an account? <a href="{% url 'login' %}">Log in</a></span>
+</div>
+{% endblock %}
+
+<!-- C:\Users\v-deepak.sharma\Desktop\BOOK\venv\my_book\templates\accounts\signup.html -->

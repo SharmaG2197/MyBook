@@ -1,0 +1,114 @@
+{% load django_bootstrap5 %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{% endblock %}</title>
+
+  <!-- Bootstrap CSS -->
+  {% bootstrap_css %}
+
+  <style>
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+    }
+
+    .full-screen {
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      padding: 1%;
+    }
+
+    .left-panel {
+      width: 45%;
+      background: linear-gradient(to bottom right, #0044cc, #007bff);
+      color: white;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-radius: 1.5%;
+    }
+
+    .left-panel img {
+      width: 150px;
+    }
+
+    .right-panel {
+      width: 55%;
+      background-color: #f8f9fa;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .testimonial-box {
+      background-color: #0d6efd;
+      padding: 1rem;
+      border-radius: 10px;
+      margin-top: 2rem;
+      color: white;
+    }
+
+    .testimonial-name {
+      font-weight: 600;
+      margin-top: 1rem;
+    }
+
+    .form-control.is-invalid {
+      border-color: #dc3545;
+    }
+
+    .invalid-feedback {
+      display: block;
+    }
+
+    .input-group-text {
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="full-screen">
+    <!-- Left Panel -->
+    <div class="left-panel">
+      <img src="https://i.imgur.com/9Qf8k9r.png" alt="PropXplor Logo">
+      <h2 class="mt-4 fw-bold">Let’s set up your Book Exchange Account</h2>
+      <p class="mt-3">The only platform to simplify and streamline real estate transactions.</p>
+      <div class="testimonial-box">
+        <p><strong>I am selling properties like never before</strong></p>
+        <p>This app made everything so simple and intuitive</p>
+        <div class="testimonial-name">Mahmoud Abu laith</div>
+        <div>⭐⭐⭐⭐⭐</div>
+      </div>
+    </div>
+
+    <!-- Right Panel -->
+    <div class="right-panel">
+      {% block form_content %}{% endblock %}
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  {% bootstrap_javascript %}
+
+  <script>
+    // Password toggle logic
+    function togglePassword(id) {
+      const input = document.getElementById(id);
+      input.type = input.type === "password" ? "text" : "password";
+    }
+  </script>
+</body>
+
+</html>
+
+<!-- C:\Users\v-deepak.sharma\Desktop\BOOK\venv\my_book\templates\accounts\auth_page.html -->

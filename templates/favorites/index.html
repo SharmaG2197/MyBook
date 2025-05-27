@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}My Favorite Books{% endblock %}
+
+{% block content %}
+<div class="container my-1">
+  <h2 class="mb-3">My Favorite Books</h2>
+
+  {% if favorite_books %}
+  <div class="row g-4 mb-3">
+    {% for book in favorite_books %}
+
+    <div class="col-md-6 col-lg-3">
+      <div class="card h-100 shadow-sm position-relative">
+        <!-- Clickable link over the full card -->
+        <a href="{% url 'show' book.id %}" class="stretched-link"></a>
+
+        {% if book.image %}
+        <img src="{{ book.image.url }}" class="card-img-top" alt="{{ book.title }}"
+          style="height: 250px; object-fit: cover;">
+        {% else %}
+        <img src="{% static 'images/no_image.avif' %}" class="card-img-top" alt="No Image"
+          style="height: 250px; object-fit: cover;">
+        {% endif %}
+
+        <div class="card-body position-relative">
+          <h5 class="card-title">{{ book.title }}</h5>
+          <p class="card-text">
+            <strong>Author:</strong> {{ book.author|capfirst }}<br>
+            <strong>Owner:</strong> {{ book.user }}<br>
+            <strong>Condition:</strong> <span class="badge bg-success">{{ book.condition|capfirst }}</span><br>
+            <strong>Price: <del class="text-danger">₹{{ book.total_price }}</del></strong><br>
+            {% if book.discount_price %}
+            <strong>Discount Price:</strong> ₹{{ book.discount_price }}
+            {% endif %}
+          </p>
+
+          <a href="{% url 'toggle_favorite' book.id %}" class="btn btn-outline-danger btn-sm z-3 position-relative">
+            ❤️ Remove Favorite
+          </a>
+
+          <a href="#" class="btn btn-warning fw-bold btn-sm float-end z-3 position-relative">
+            Book Exchange
+          </a>
+        </div>
+      </div>
+    </div>
+
+    {% endfor %}
+  </div>
+
+  {% else %}
+  <p class="text-muted">You haven't added any books to your favorites yet.</p>
+  {% endif %}
+
+  <a href="{% url 'dashboard' %}">← Back</a><br>
+
+</div>
+{% endblock %}
